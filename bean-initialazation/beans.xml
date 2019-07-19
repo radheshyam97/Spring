@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<!-- Constructor Injection -->
+	<bean id="config1" class="com.test.bean.ConnectionConfig" />
+
+	<bean id="config2" class="com.test.bean.ConnectionConfig">
+		<constructor-arg type="java.lang.String">
+			<value>localhost</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="config3" class="com.test.bean.ConnectionConfig">
+		<constructor-arg index="3">
+			<value>30000</value>
+		</constructor-arg>
+		<constructor-arg index="0">
+			<value>192.100.111.101</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>443</value>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>20000</value>
+		</constructor-arg>
+	</bean>
+
+	<!-- Static Factory Method Demo -->
+	<!-- no agrs -->
+	<bean name="socketFactory" class="com.test.factory.SocketFactory"
+		factory-method="getInstance" />
+
+	<!-- factory method with args and field -->
+	<bean name="socketFactory2" class="com.test.factory.SocketFactory"
+		factory-method="getInstance">
+		<constructor-arg>
+			<value>192.168.35.169</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>8080</value>
+		</constructor-arg>
+		<!-- <property name="sslEnabled"> <value type="boolean">false</value> </property> -->
+	</bean>
+
+
+	<!--Non Static Factory Method Demo -->
+	<bean name="s1" class="com.test.factory.SocketFactory" />
+
+	<bean name="s2" factory-bean="s1" factory-method="newInstance"/>
+
+
+
+
+
+
+
+
+
+</beans>
